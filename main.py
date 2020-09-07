@@ -29,4 +29,4 @@ with open("/home/pi/rpi_weather_station.csv", "a") as log:
             print("[INFO] data sent for 2 fields: ",  temperature, humidity)
         except:
             print("[info] failure in sending data")
-        time.sleep(30)
+        time.sleep(10)
