@@ -1,20 +1,12 @@
-import paho.mqtt.publish as publish
+#!/usr/bin/python
+import sys
+import Adafruit_DHT
+import time
+import datetime
 
-channelID = "1136666"
-apiKey = "3GXSCUY59YQ3M7YZ"
-
-topic = "channels/" + channelID + "/publish/" + apiKey
-mqttHost = "mqtt.thingspeak.com"
-tTransport = "tcp"
-tPort = 1883
-tTLS = None
-
-tPayload = "field1=" + str(timeString) + "&field2=" + str(temperature) + "&field3=" + str(humidity)
-
-print("[INFO] Data prepared to be uploaded")
-
-try:
-    publish.single(topic, payload=tPayload, hostname=mqttHost, port=tPort, tls=tTLS, transport=tTransport)
-    print("[INFO] data sent for 3 fields: ", timeString, temperature, humidity)
-except:
-    print("[info] failure in sendind data")
+while True:
+    now = datetime.datetime.now()
+    timeString = now.strftime("%Y-%m-%d %H:%M")
+    humidity, temperature = Adafruit_DHT.read_retry(11, 4)
+    print 'Temp: {0:0.1f} C  Humidity: {1:0.1f} %'.format(temperature, humidity)
+    time.sleep(10)
